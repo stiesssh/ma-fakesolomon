@@ -19,7 +19,7 @@ public class FlatSloRule {
 	private String name; 		// display name of the rule, provided by user
 	private String description;	// displayed description of the rule, provided by user 
 	
-	private PresetOption presetOptions;
+	private PresetOption presetOption;
 //	private MetricOptions metricOptions;
 	private ComparisonOperator comparisonOperator;
 	private StatisticsOption statisticsOption;
@@ -82,12 +82,11 @@ public class FlatSloRule {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public PresetOption getPresetOptions() {
-		return presetOptions;
+	public PresetOption getPresetOption() {
+		return presetOption;
 	}
-	public void setPresetOptions(PresetOption presetOptions) {
-		this.presetOptions = presetOptions;
+	public void setPresetOption(PresetOption presetOption) {
+		this.presetOption = presetOption;
 	}
 //	public MetricOptions getMetricOptions() {
 //		return metricOptions;
