@@ -7,7 +7,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
-import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -130,9 +129,10 @@ public class FakesolomonController {
 		
 
 		String title = "linkissue " + alert.getSloId() + " " + Instant.now().toString(); 
+		String body = "foo";
 		
 		String request = "mutation{createIssue(input:{title:\"" + title + "\",componentIDs:[\"" + providerCompId
-				+ "\"],body:\"jsonBody\"}){issue{id,title}}}";
+				+ "\"],body:\""+ body +"\"}){issue{id,title}}}";
 
 		String escaped = StringEscapeUtils.escapeJson(request);
 		String full = "{\"query\":\"" + escaped + "\",\"variables\":null}";
@@ -197,5 +197,10 @@ public class FakesolomonController {
 			e.printStackTrace();
 		}
 		return alert;
+	}
+	
+	@GetMapping("/")
+	public String greetings() {
+		return "Greetings :)";
 	}
 }
