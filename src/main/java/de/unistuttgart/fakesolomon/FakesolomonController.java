@@ -128,7 +128,7 @@ public class FakesolomonController {
 		alert.setGropiusComponentId(providerCompId);
 		
 
-		String title = "linkissue " + alert.getSloId() + " " + Instant.now().toString(); 
+		String title = "linkissue " + alert.getSloName() + " " + Instant.now().toString(); 
 		String body = "foo";
 		
 		String request = "mutation{createIssue(input:{title:\"" + title + "\",componentIDs:[\"" + providerCompId
@@ -172,11 +172,12 @@ public class FakesolomonController {
 			JsonNode startAt = root.findPath("startsAt"); // "startsAt":"2021-06-07T12:15:43.759Z"
 			JsonNode value = root.findPath("value");
 			JsonNode name = root.findPath("alertname");
+			JsonNode solomonId = root.findPath("solomonId");
 
 			alert.setAlertName(name.textValue());
 			alert.setSloName(name.textValue());
 			alert.setAlertDescription(name.textValue());
-			alert.setSloId(name.textValue());
+			alert.setSloId(solomonId.textValue());
 			alert.setActualValue(value.asDouble());
 
 			LocalDateTime date = LocalDateTime.parse(startAt.textValue(), DateTimeFormatter.ISO_DATE_TIME);
