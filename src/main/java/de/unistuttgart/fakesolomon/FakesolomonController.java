@@ -57,8 +57,8 @@ public class FakesolomonController {
 
 	// this is fake after all...
 	private final String projectId = "5ece9e3bb52c5001";// "5e8cc17ed645a00c";
-	private final String providerCompId = "5ece9ebcc4ec5011";
-	private final String providerIfaceId = "5ece9f111d6c5019";
+	private final String providerCompId = "5ed904864af07002";
+	private final String providerIfaceId = "5ed904cd2ff07003";
 
 	/**
 	 * Get the rules (fake)
