@@ -43,11 +43,16 @@ public class FakesolomonController {
 	private final HttpClient httpClient;
 
 	public FakesolomonController(@Value("${backend.url}") String coreAlertUri,
-			@Value("${gropius.url}") String gropiouUri) {
+			@Value("${gropius.projectId}") String projectId, @Value("${gropius.providerCompId}") String providerCompId,
+			@Value("${gropius.providerIfaceId}") String providerIfaceId, @Value("${gropius.url}") String gropiouUri) {
 		template = new RestTemplate();
 		this.coreAlertUri = coreAlertUri;
 		this.gropiusUri = gropiouUri;
 
+		this.projectId = projectId;
+		this.providerCompId = providerCompId;
+		this.providerIfaceId = providerIfaceId;
+		
 		this.httpClient = HttpClient.newBuilder().build();
 	}
 
@@ -56,9 +61,9 @@ public class FakesolomonController {
 	private final RestTemplate template;
 
 	// this is fake after all...
-	private final String projectId = "5ece9e3bb52c5001";// "5e8cc17ed645a00c";
-	private final String providerCompId = "5ed904864af07002";
-	private final String providerIfaceId = "5ed904cd2ff07003";
+	private final String projectId;
+	private final String providerCompId;
+	private final String providerIfaceId;
 
 	/**
 	 * Get the rules (fake)
@@ -126,27 +131,24 @@ public class FakesolomonController {
 		Alert alert = parse(prometheusAlert);
 		alert.setGropiusProjectId(projectId);
 		alert.setGropiusComponentId(providerCompId);
-		
 
-		String title = "linkissue " + alert.getSloName() + " " + Instant.now().toString(); 
+		String title = "linkissue " + alert.getSloName() + " " + Instant.now().toString();
 		String body = "foo";
-		
+
 		String request = "mutation{createIssue(input:{title:\"" + title + "\",componentIDs:[\"" + providerCompId
-				+ "\"],body:\""+ body +"\"}){issue{id,title}}}";
+				+ "\"],body:\"" + body + "\"}){issue{id,title}}}";
 
 		String escaped = StringEscapeUtils.escapeJson(request);
 		String full = "{\"query\":\"" + escaped + "\",\"variables\":null}";
-
-		
 
 		URI requestUri = URI.create(gropiusUri.toString());
 		HttpRequest httprequest = HttpRequest.newBuilder().POST(BodyPublishers.ofString(full)).uri(requestUri)
 				.header("Content-Type", "application/json").build();
 		HttpResponse<String> response = httpClient.send(httprequest, BodyHandlers.ofString());
-		
+
 		String linkedID = parseLinkIssue(response.body());
 		logger.info(String.format("create issue %s at gropius backend.", linkedID));
-		
+
 		alert.setIssueId(linkedID);
 
 		logger.info(String.format("post alert %s to backend.", alert.getAlertName()));
@@ -199,7 +201,7 @@ public class FakesolomonController {
 		}
 		return alert;
 	}
-	
+
 	@GetMapping("/")
 	public String greetings() {
 		return "Greetings :)";
