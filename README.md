@@ -1,11 +1,15 @@
 # fakesolomon
 
 This is a fake of the monitoring and issue creation part of the [Solomon Tool](https://github.com/ccims/solomon).
-It receives alert from Prometheus, creates a faked issue and forwards the alert *and* the issue id to the [Thesis' backend](https://github.com/stiesssh/de.unistuttgart.ma.backend).
+It receives alert from Prometheus, creates a faked issue and forwards the alert *and* the issue id to the [Thesis' backend](https://github.com/stiesssh/ma-backend).
 
 It exists because at the time of the thesis' implementation the Solomon Tool did not yet support the forwarding. (And 'you just gotta add a few lines of code' is a lot of work when you don't know anything about the tools implementation.)
 
 
+## HTTP API Endpoints 
+
+* `/` : GET greetings
+* `/api/v2/alerts` : prometheus alert manager should POST their alerts here
 
 ## Spring Properties
 
