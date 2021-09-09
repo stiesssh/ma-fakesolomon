@@ -5,9 +5,6 @@ package de.unistuttgart.fakesolomon;
  * A SloRule for the FakeSolomon
  * based on : 
  * https://github.com/ccims/automated-sla-issue-management/blob/refactoring/solomon-models/src/slo-rule.model.ts
- *   
- * @author maumau
- *
  */
 public class FlatSloRule {
 	

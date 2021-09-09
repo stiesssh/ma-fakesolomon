@@ -4,9 +4,6 @@ import java.time.LocalDateTime;
 
 /**
  * Alert as implemented by Solomon
- * 
- * @author maumau
- *
  */
 public class Alert {
 	double actualValue;
